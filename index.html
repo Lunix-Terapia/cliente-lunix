@@ -46,36 +46,42 @@
       }
     }
 
-    /* Estilo do botão do menu */
+/* Botão do menu hambúrguer */
 .menu-toggle {
-  display: none;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 28px;
   color: #333;
+  cursor: pointer;
   position: absolute;
-  top: 25px;
+  top: 20px;
   right: 20px;
   z-index: 1001;
+  display: none; /* Só aparece no mobile */
 }
 
-/* Estilo padrão: menu sempre visível */
+/* Menu padrão para desktop */
 nav#mobile-menu {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
-/* Só em telas pequenas: vira menu hamburguer */
+/* Estilo para telas pequenas */
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
   nav#mobile-menu {
     display: none;
     flex-direction: column;
     background-color: #fff;
     position: absolute;
-    top: 80px;
+    top: 70px;
     right: 20px;
     width: 220px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
     border-radius: 8px;
     z-index: 1000;
@@ -85,10 +91,13 @@ nav#mobile-menu {
     display: flex;
   }
 
-  .menu-toggle {
-    display: block;
+  nav#mobile-menu a {
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
   }
 }
+
 
 
 /* Esconde o botão de menu em telas grandes */
@@ -102,11 +111,10 @@ nav#mobile-menu {
 <body>
   <header>
     <div class="container">
-      <h1 class="um">
-        <button id="menu-toggle" class="menu-toggle">
+      <button id="menu-toggle" class="menu-toggle">
   <i class="fas fa-bars"></i>
 </button>
-
+      <h1 class="um">
         <img class="imagem-redonda" src="logo.jpg" alt="Logo">LUNIX</h1>
       <nav id="mobile-menu">
   <a href="#inicial">Início</a>
@@ -265,22 +273,21 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-    // Menu hamburguer
-const toggle = document.getElementById("menu-toggle");
+    const toggle = document.getElementById("menu-toggle");
 const nav = document.getElementById("mobile-menu");
 
 toggle.addEventListener("click", () => {
   nav.classList.toggle("active");
 });
 
-// Fecha menu ao clicar em um link
 nav.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", () => {
     if (window.innerWidth <= 768) {
-      nav.style.display = "none";
+      nav.classList.remove("active");
     }
   });
 });
+
 
   </script>
   <button id="btnTopo" title="Voltar ao topo" style="display: none;">
