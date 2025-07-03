@@ -46,8 +46,16 @@
       }
     }
 
-/* Botão do menu hambúrguer */
+/* Menu padrão em telas grandes */
+#mobile-menu {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Botão do menu hamburguer (escondido no desktop) */
 .menu-toggle {
+  display: none;
   background: none;
   border: none;
   font-size: 28px;
@@ -57,23 +65,15 @@
   top: 20px;
   right: 20px;
   z-index: 1001;
-  display: none; /* Só aparece no mobile */
 }
 
-/* Menu padrão para desktop */
-nav#mobile-menu {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-/* Estilo para telas pequenas */
+/* Mobile: exibe botão e esconde menu até abrir */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
   }
 
-  nav#mobile-menu {
+  #mobile-menu {
     display: none;
     flex-direction: column;
     background-color: #fff;
@@ -87,11 +87,11 @@ nav#mobile-menu {
     z-index: 1000;
   }
 
-  nav#mobile-menu.active {
+  #mobile-menu.active {
     display: flex;
   }
 
-  nav#mobile-menu a {
+  #mobile-menu a {
     padding: 10px;
     color: #333;
     text-decoration: none;
@@ -110,21 +110,26 @@ nav#mobile-menu {
 </head>
 <body>
   <header>
-    <div class="container">
-      <button id="menu-toggle" class="menu-toggle">
-  <i class="fas fa-bars"></i>
-</button>
-      <h1 class="um">
-        <img class="imagem-redonda" src="logo.jpg" alt="Logo">LUNIX</h1>
-      <nav id="mobile-menu">
-  <a href="#inicial">Início</a>
-  <a href="#terapeuta">Terapeuta</a>
-  <a href="#servicos">Serviços</a>
-  <a href="#duvidas">Dúvidas</a>
-  <a href="#avaliacoes">Avaliações</a>
-  <a href="#contato">Contato</a>
-</nav>
+  <div class="container" style="position: relative;">
+    <h1 class="um">
+      <img class="imagem-redonda" src="logo.jpg" alt="Logo"> LUNIX
+    </h1>
 
+    <!-- Botão do menu hambúrguer -->
+    <button id="menu-toggle" class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Menu de navegação -->
+    <nav id="mobile-menu">
+      <a href="#inicial">Início</a>
+      <a href="#terapeuta">Terapeuta</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    
     </div>
   </header>
 <main>
@@ -273,22 +278,6 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-    const toggle = document.getElementById("menu-toggle");
-const nav = document.getElementById("mobile-menu");
-
-toggle.addEventListener("click", () => {
-  nav.classList.toggle("active");
-});
-
-nav.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => {
-    if (window.innerWidth <= 768) {
-      nav.classList.remove("active");
-    }
-  });
-});
-
-
   </script>
   <button id="btnTopo" title="Voltar ao topo" style="display: none;">
     <i class="fas fa-arrow-up"></i>
@@ -348,6 +337,26 @@ nav.querySelectorAll("a").forEach(link => {
       }
     }
   </script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("mobile-menu");
+
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
+
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 768) {
+          nav.classList.remove("active");
+        }
+      });
+    });
+  });
+</script>
+
 
 </main>
 </body>
